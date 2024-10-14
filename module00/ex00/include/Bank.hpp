@@ -22,7 +22,7 @@ class Bank {
 				friend class Bank;
 
 			private:
-				double _value;
+				double _money;
 				double _loan;
 		};
 		static unsigned int _accountsIds;
@@ -40,6 +40,7 @@ class Bank {
 		// Operators
 		friend std::ostream& operator << (std::ostream& os, const Bank& bank);
 		friend std::ostream& operator << (std::ostream& os, const Bank::Account* account);
+		Bank::Account* operator [](int accountId);
 		Bank& operator = (const Bank& copy);
 
 		// Getters

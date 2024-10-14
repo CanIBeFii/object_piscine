@@ -75,10 +75,10 @@ void Bank::deleteAccount(int accountId) {
 }
 
 void Bank::addMoneyToAccount(Bank::Account* account, double amount) {
-	if (account->_value > MAX_DOUBLE - amount) {
+	if (account->_money > MAX_DOUBLE - amount) {
 		throw std::runtime_error("Adding this much money will overflow account");
 	}
-	account->_value += amount; 
+	account->_money += amount; 
 }
 
 void Bank::depositMoney(int accountId, double depositAmount) {
@@ -106,5 +106,27 @@ void Bank::depositMoney(int accountId, double depositAmount) {
 }
 
 void Bank::withdrawMoney(int accountId, double withdrawAmount) {
-	
+	std::map<int, Bank::Account*>::iterator account_iter = _clientAccounts.find(accountId);
+	if (account_iter == _clientAccounts.end()) {
+		throw std::runtime_error("There's no account with that id");
+	}
+	Bank::Account* account = account_iter->second;
+	if (withdrawAmount > account->_money) {
+		throw std::runtime_error("There's not enough money in the account");
+	}
+	account->_money -= withdrawAmount;
+}
+
+void Bank::askForLoan(int accountId, double loanAmount) {
+	std::map<int, Bank::Account*>::iterator account_iter = _clientAccounts.find(accountId);
+	if (account_iter == _clientAccounts.end()) {
+		throw std::runtime_error("There's no account with that id");
+	}
+	Bank::Account* account = account_iter->second;
+	if (loanAmount > _liquidity) {
+		throw std::runtime_error("The bank doesn't have enough liquidity");
+	}
+	addMoneyToAccount(account, loanAmount);
+	account->_loan += loanAmount;
+	_liquidity -= loanAmount;
 }
