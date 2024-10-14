@@ -4,7 +4,7 @@ HEADERS_LIST = Bank.hpp
 HEADERS_DIRECTORY = ./include/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SOURCES_LIST =  Bank.cpp
+SOURCES_LIST =  Bank.cpp main.cpp
 SOURCES_DIRECTORY = ./src/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
@@ -72,8 +72,9 @@ fclean: clean ## Calls clean and deletes all executables and compiled libs
 	@rm -f $(NAME)
 
 re: fclean all ## Deep cleans the project and recompiles it
-	# @make -s fclean
-	# @make -s all
+
+test: all
+	./$(NAME)
 	
 help: ## Shows all the options and it's uses
 	@echo "usage: make [target]"
