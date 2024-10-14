@@ -1,7 +1,6 @@
 #ifndef BANK_HPP
 #define BANK_HPP
 
-#include "Account.hpp"
 #include <iostream>
 #include <limits>
 #include <map>
@@ -20,6 +19,8 @@ class Bank {
 				double getValue() const;
 				double getLoan() const;
 
+				friend class Bank;
+
 			private:
 				double _value;
 				double _loan;
@@ -27,6 +28,8 @@ class Bank {
 		static unsigned int _accountsIds;
 		double _liquidity;
 		std::map<int, Account *> _clientAccounts;
+
+		void addMoneyToAccount(Account* account, double amount);
 		
 	public:
 		Bank();
@@ -40,22 +43,21 @@ class Bank {
 		Bank& operator = (const Bank& copy);
 
 		// Getters
-		std::map<int, Account *>& getAllAccounts();
-		std::map<int, Account *>& getAllAccounts() const;
+		std::map<int, Bank::Account *>& getAllAccounts();
 		double getLiquidity();
 		double getLiquidity() const;
 
 		// Setter
-		void setLiquidity(double amount) throw std::runtime_error;
+		void setLiquidity(double amount);
 
-		void addLiquidity(double amount) throw std::runtime_error;
-		void addAccount() throw std::runtime_error;
-		void deleteAccount(int accountId) throw std::runtime_error;
+		void addLiquidity(double amount);
+		void addAccount();
+		void deleteAccount(int accountId);
 
 		void depositMoney(int accountId, double depositAmount);
 		void withdrawMoney(int accountId, double withdrawAmount);
 		void askForLoan(int accountId, double loanAmount);
 
-}
+};
 
 #endif
