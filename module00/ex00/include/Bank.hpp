@@ -16,7 +16,7 @@ class Bank {
 				Account();
 				~Account();
 
-				double getValue() const;
+				double getMoney() const;
 				double getLoan() const;
 
 				friend class Bank;
@@ -38,8 +38,8 @@ class Bank {
 		~Bank();
 
 		// Operators
-		friend std::ostream& operator << (std::ostream& os, const Bank& bank);
-		friend std::ostream& operator << (std::ostream& os, const Bank::Account* account);
+		friend std::ostream& operator<< (std::ostream& os, Bank& bank);
+		friend std::ostream& operator<< (std::ostream& os, const Bank::Account* account);
 		Bank::Account* operator [](int accountId);
 		Bank& operator = (const Bank& copy);
 
@@ -55,6 +55,7 @@ class Bank {
 		void addAccount();
 		void deleteAccount(int accountId);
 
+		void addMoneyToAccount(Bank::Account* account, double amount);
 		void depositMoney(int accountId, double depositAmount);
 		void withdrawMoney(int accountId, double withdrawAmount);
 		void askForLoan(int accountId, double loanAmount);

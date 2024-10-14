@@ -26,6 +26,32 @@ Bank::~Bank() {
 		}
 }
 
+std::ostream& operator<<(std::ostream& os, Bank& bank) {
+	os << "Bank -> [" << std::endl;
+	os << "\tLiquidity: " << bank._liquidity << std::endl;
+	os << "\tAccounts: [" << std::endl;
+	std::map<int, Bank::Account*> allAccounts = bank.getAllAccounts();
+	for (std::map<int, Bank::Account*>::iterator iter = allAccounts.begin();
+		iter != allAccounts.end();
+		++iter) {
+			os << "\t\tAccount " << iter->first << " " << iter->second << std::endl;
+		}
+	os << "]" << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, const Bank::Account* account) {
+	os << "[Money: " << account->getMoney();
+	os << " Loan: " << account->getLoan() << "]";
+}
+
+Bank::Account* Bank::operator[](int accountId) {
+	std::map<int, Bank::Account*>::iterator account = _clientAccounts.find(accountId);
+	if (account == _clientAccounts.end()) {
+		throw std::runtime_error("There's no such account with that id :(");
+	}
+	return account->second;
+}
+
 std::map<int, Bank::Account *>& Bank::getAllAccounts() {
 	return _clientAccounts;
 }
@@ -126,7 +152,22 @@ void Bank::askForLoan(int accountId, double loanAmount) {
 	if (loanAmount > _liquidity) {
 		throw std::runtime_error("The bank doesn't have enough liquidity");
 	}
+	if (loanAmount <= 0) {
+		throw std::runtime_error("The loan amount is 0 or negative(WTFF)");
+	}
 	addMoneyToAccount(account, loanAmount);
 	account->_loan += loanAmount;
 	_liquidity -= loanAmount;
+}
+
+Bank::Account::Account(): _money(0), _loan(0) {}
+
+Bank::Account::~Account() {}
+
+double Bank::Account::getMoney() const {
+	return _money;
+}
+
+double Bank::Account::getLoan() const {
+	return _loan;
 }
