@@ -25,11 +25,11 @@ class Bank {
 				double _money;
 				double _loan;
 		};
-		static unsigned int _accountsIds;
+		unsigned int _accountsIds;
 		double _liquidity;
 		std::map<int, Account *> _clientAccounts;
 
-		void addMoneyToAccount(Account* account, double amount);
+		void addMoneyToAccount(Bank::Account* account, double amount);
 		
 	public:
 		Bank();
@@ -55,7 +55,6 @@ class Bank {
 		void addAccount();
 		void deleteAccount(int accountId);
 
-		void addMoneyToAccount(Bank::Account* account, double amount);
 		void depositMoney(int accountId, double depositAmount);
 		void withdrawMoney(int accountId, double withdrawAmount);
 		void askForLoan(int accountId, double loanAmount);

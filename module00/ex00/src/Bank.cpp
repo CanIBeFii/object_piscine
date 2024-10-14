@@ -1,25 +1,31 @@
 #include "Bank.hpp"
 
-unsigned int Bank::_accountsIds = 0;
+Bank::Bank(): _accountsIds(0), _liquidity(0), _clientAccounts(std::map<int, Bank::Account*>()) {}
 
-Bank::Bank(): _liquidity(0) {}
+Bank::Bank(int liquidity)
+	: _accountsIds(0)
+	, _liquidity(liquidity)
+	, _clientAccounts(std::map<int, Bank::Account*>())
+	{}
 
-Bank::Bank(int liquidity): _liquidity(liquidity) {}
-
-Bank::Bank(const Bank& copy): _liquidity(copy._liquidity) {
-	_clientAccounts.insert(copy._clientAccounts.begin(), copy._clientAccounts.end());
-}
+Bank::Bank(const Bank& copy)
+	: _accountsIds(copy._accountsIds)
+	, _liquidity(copy._liquidity)
+	, _clientAccounts(copy._clientAccounts) 
+	{}
 
 Bank& Bank::operator = (const Bank& copy) {
 	if (this != &copy) {
+		_accountsIds = copy._accountsIds;
 		_liquidity = copy._liquidity;
+		_clientAccounts.clear();
 		_clientAccounts.insert(copy._clientAccounts.begin(), copy._clientAccounts.end());
 	}
 	return *this;
 }
 
 Bank::~Bank() {
-	for (std::map<int, Account *>::iterator iter = _clientAccounts.begin();
+	for (std::map<int, Bank::Account *>::iterator iter = _clientAccounts.begin();
 		iter != _clientAccounts.end();
 		++iter) {
 			delete iter->second;
@@ -29,19 +35,22 @@ Bank::~Bank() {
 std::ostream& operator<<(std::ostream& os, Bank& bank) {
 	os << "Bank -> [" << std::endl;
 	os << "\tLiquidity: " << bank._liquidity << std::endl;
-	os << "\tAccounts: [" << std::endl;
+	os << "\tAccounts: -> [" << std::endl;
 	std::map<int, Bank::Account*> allAccounts = bank.getAllAccounts();
 	for (std::map<int, Bank::Account*>::iterator iter = allAccounts.begin();
 		iter != allAccounts.end();
 		++iter) {
 			os << "\t\tAccount " << iter->first << " " << iter->second << std::endl;
 		}
+	os << "\t\t]" << std::endl;
 	os << "]" << std::endl;
+	return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const Bank::Account* account) {
 	os << "[Money: " << account->getMoney();
 	os << " Loan: " << account->getLoan() << "]";
+	return os;
 }
 
 Bank::Account* Bank::operator[](int accountId) {
