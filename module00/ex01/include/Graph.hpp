@@ -15,13 +15,14 @@ class Graph {
 		Graph(float x, float y);
 		~Graph();
 
-		Vector2 getSize();
-		Vector2 getSize() const;
+		Vector2& getSize();
+		const Vector2& getSize() const;
 
-		void setSize(Vector2 newSize);
+		void setSize(Vector2& newSize);
 
-		void addPoint(Vector2 point);
-		void removePoint(Vector2 point);
+		void addPoint(Vector2& point);
+		void removePoint(Vector2& point);
 		bool isPoint(float y, float x);
-		void printGraph();
+
+		friend std::ostream& operator<<(std::ostream& os, Graph& graph);
 };

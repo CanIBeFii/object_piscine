@@ -8,10 +8,11 @@ class Vector2 {
 		float _y;
 	public:
 		Vector2();
-		Vector2(float x, float y);
+		Vector2(float y, float x);
 		~Vector2();
 
 		bool operator==(const Vector2 vector);
+		friend std::ostream& operator<<(std::ostream& os, const Vector2& vector);
 
 		float getX();
 		float getX() const;
