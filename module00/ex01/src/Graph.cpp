@@ -14,11 +14,11 @@ const Vector2& Graph::getSize() const {
 	return _size;
 }
 
-void Graph::setSize(Vector2& newSize) {
+void Graph::setSize(Vector2 newSize) {
 	_size = newSize;
 }
 
-void Graph::addPoint(Vector2& point) {
+void Graph::addPoint(Vector2 point) {
 	float x = point.getX();
 	float y = point.getY();
 
@@ -41,7 +41,7 @@ void Graph::addPoint(Vector2& point) {
 	_points.push_back(point);
 }
 
-void Graph::removePoint(Vector2& point) {
+void Graph::removePoint(Vector2 point) {
 	for (std::vector<Vector2>::iterator points_iterator = _points.begin();
 		points_iterator != _points.end();
 		++points_iterator)
