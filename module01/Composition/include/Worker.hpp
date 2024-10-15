@@ -9,7 +9,7 @@ class Worker {
 		Statistic stat;
 	public:
 		Worker();
-		Worker(Position coord, Statistic stat);
+		Worker(Position coord, Statistic statistic);
 		Worker(const Worker& copy);
 		~Worker();
 

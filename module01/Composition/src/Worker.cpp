@@ -4,7 +4,7 @@ Worker::Worker(): coordonnee(Position()), stat(Statistic()) {
 	std::cout << "Worker default constructor called" << std::endl;
 }
 
-Worker::Worker(Position coord, Statistic stat): coordonnee(coord), stat(stat) {
+Worker::Worker(Position coord, Statistic statistic): coordonnee(coord), stat(statistic) {
 	std::cout << "Worker constructor called" << std::endl;
 }
 

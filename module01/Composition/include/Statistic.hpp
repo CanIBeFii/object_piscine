@@ -7,6 +7,6 @@ struct Statistic {
 	int exp;
 
 	Statistic();
-	Statistic(int level, int exp);
+	Statistic(int init_level, int init_exp);
 	~Statistic();
 };

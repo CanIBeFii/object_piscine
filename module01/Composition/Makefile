@@ -1,4 +1,4 @@
-NAME=ex00
+NAME=composition
 
 HEADERS_LIST = Position.hpp Statistic.hpp Worker.hpp
 HEADERS_DIRECTORY = ./include/
