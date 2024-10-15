@@ -2,7 +2,6 @@
 #define VECTOR2_HPP
 
 #include <iostream>
-#include <map>
 
 class Vector2 {
 	private:
@@ -12,6 +11,8 @@ class Vector2 {
 		Vector2();
 		Vector2(float x, float y);
 		~Vector2();
+
+		bool operator==(const Vector2 vector);
 
 		float getX();
 		float getX() const;

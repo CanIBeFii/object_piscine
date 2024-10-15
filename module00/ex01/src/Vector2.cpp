@@ -6,6 +6,10 @@ Vector2::Vector2(float x, float y): _x(x), _y(y) {}
 
 Vector2::~Vector2() {}
 
+bool Vector2::operator==(const Vector2 vector) {
+	return _x == vector._x && _y == vector._y;
+}
+
 float Vector2::getX() {
 	return _x;
 }
