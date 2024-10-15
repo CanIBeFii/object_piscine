@@ -1,5 +1,4 @@
-#ifndef VECTOR2_HPP
-#define VECTOR2_HPP
+#pragma once
 
 #include <iostream>
 
@@ -20,5 +19,3 @@ class Vector2 {
 		float getY() const;
 
 };
-
-#endif

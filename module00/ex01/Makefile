@@ -1,10 +1,10 @@
 NAME=ex01
 
-HEADERS_LIST = 
+HEADERS_LIST = Vector2.hpp Graph.hpp
 HEADERS_DIRECTORY = ./include/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SOURCES_LIST =  
+SOURCES_LIST =  Vector2.cpp Graph.cpp  main.cpp
 SOURCES_DIRECTORY = ./src/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
