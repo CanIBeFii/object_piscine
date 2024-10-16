@@ -14,6 +14,7 @@ Shovel::Shovel(const Shovel& copy): numberOfUses(copy.numberOfUses) {
 
 Shovel::~Shovel() {
 	std::cout << "Shovel destructor called" << std::endl;
+	currentWorker = NULL;
 }
 
 int Shovel::getNumberOfUses() {
