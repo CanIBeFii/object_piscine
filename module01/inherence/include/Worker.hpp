@@ -26,7 +26,7 @@ class Worker {
 		void useTool(Tool* tool);
 
 		template<typename T>
-		Tool* getTool() {
+		T* getTool() {
 			for (std::set<Tool*>::iterator iter = tools.begin();
 				iter != tools.end();
 				++iter)
