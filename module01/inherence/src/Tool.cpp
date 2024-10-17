@@ -13,4 +13,17 @@ Tool::Tool(const Tool& copy): number_of_uses(copy.number_of_uses) {
 	current_worker = copy.current_worker;
 }
 
-Tool::~Tool():
+Tool::~Tool() {
+	std::cout << "Tool destructor called" << std::endl;
+}
+
+int Tool::getNumberOsUses() {
+	return number_of_uses;
+}
+
+void Tool::leaveWorker() {
+	if (current_worker != NULL) {
+		current_worker->removeTool(this);
+		current_worker = NULL;
+	}
+}

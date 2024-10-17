@@ -20,6 +20,5 @@ class Tool {
 		virtual void use() = 0;
 
 		void leaveWorker();
-		void assignWorker(Worker* new_worker);
 		friend class Worker;
 };

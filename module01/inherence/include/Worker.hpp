@@ -3,14 +3,15 @@
 #include "Position.hpp"
 #include "Statistic.hpp"
 #include "Shovel.hpp"
+#include <set>
 
-class Shovel;
+class Tool;
 
 class Worker {
 	private:
 		Position coordonnee;
 		Statistic stat;
-		Shovel* shovel;
+		std::set<Tool*> tools;
 	public:
 		Worker();
 		Worker(Position coord, Statistic statistic);
@@ -20,9 +21,21 @@ class Worker {
 		Position& getCoordonnee();
 		Statistic& getStat();
 
-		void assignShovel(Shovel* new_shovel);
-		void removeShovel();
-		void useShovel();
+		void assignTool(Tool* new_tool);
+		void removeTool(Tool* tool);
+		void useTool(Tool* tool);
+
+		template<typename T>
+		Tool* getTool() {
+			for (std::set<Tool*>::iterator iter = tools.begin();
+				iter != tools.end();
+				++iter)
+				{
+					if (T* tool = dynamic_cast<T*>(*iter)) {
+						return *iter;
+					}
+				}
+		}
 
 		friend class Shovel;
 };

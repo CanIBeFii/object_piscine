@@ -26,27 +26,27 @@ Statistic& Worker::getStat() {
 	return stat;
 }
 
-void Worker::assignShovel(Shovel* new_shovel) {
-	std::cout << "Assign shovel called" << std::endl;
-	if (new_shovel) {
-		new_shovel->leaveWorker();
-		shovel = new_shovel;
+void Worker::assignTool(Tool* new_tool) {
+	std::cout << "Assign tool called" << std::endl;
+	if (new_tool) {
+		new_tool->leaveWorker();
+		tools.insert(new_tool);
+		new_tool->current_worker = this;
 	}
 }
 
-void Worker::removeShovel() {
+void Worker::removeTool(Tool *tool) {
 	std::cout << "Remove shovel called" << std::endl;
-	if (shovel) {
-		shovel->leaveWorker();
-		shovel = NULL;
+	if (tool != NULL && tools.erase(tool) != 0) {
+		tool->current_worker = NULL;
 	}
 }
 
-void Worker::useShovel() {
-	std::cout << "Use shovel called" << std::endl;
-	if (shovel) {
-		shovel->use();
+void Worker::useTool(Tool* tool) {
+	std::cout << "Use Tool called" << std::endl;
+	if (tool != NULL && tools.find(tool) != tools.end()) {
+		tool->use();
 		return ;
 	}
-	std::cout << "Couldn't use shovel because i don't have any" << std::endl;
+	std::cout << "Couldn't use tool because it's a skill issue" << std::endl;
 }

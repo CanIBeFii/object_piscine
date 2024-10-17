@@ -6,12 +6,12 @@
 
 class Worker;
 
-class Shovel: public Tool {
+class Hammer: public Tool {
 	public:
-		Shovel();
-		Shovel(int uses);
-		Shovel(const Shovel& copy);
-		~Shovel();
+		Hammer();
+		Hammer(int uses);
+		Hammer(const Hammer& copy);
+		~Hammer();
 
 		void use();
 		friend class Worker;
