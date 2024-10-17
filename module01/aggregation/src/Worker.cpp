@@ -28,16 +28,21 @@ Statistic& Worker::getStat() {
 
 void Worker::assignShovel(Shovel* new_shovel) {
 	std::cout << "Assign shovel called" << std::endl;
-	if (new_shovel) {
-		new_shovel->leaveWorker();
-		shovel = new_shovel;
+	if (new_shovel == NULL) {
+		return ;
 	}
+	new_shovel->leaveWorker();
+	if (shovel != NULL) {
+		shovel->leaveWorker();
+	}
+	shovel = new_shovel;
+	shovel->currentWorker = this;
 }
 
 void Worker::removeShovel() {
 	std::cout << "Remove shovel called" << std::endl;
-	if (shovel) {
-		shovel->leaveWorker();
+	if (shovel != NULL) {
+		shovel->currentWorker = NULL;
 		shovel = NULL;
 	}
 }

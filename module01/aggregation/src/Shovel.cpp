@@ -28,8 +28,8 @@ void Shovel::use(){
 
 void Shovel::leaveWorker() {
 	std::cout << "Leave worker called" << std::endl;
-	if (currentWorker) {
+	if (currentWorker != NULL) {
 		currentWorker->removeShovel();
+		currentWorker = NULL; 
 	}
-	currentWorker = NULL;
 }
