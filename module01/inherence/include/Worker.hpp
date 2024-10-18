@@ -2,11 +2,10 @@
 
 #include "Position.hpp"
 #include "Statistic.hpp"
-#include "Shovel.hpp"
+#include "Tool.hpp"
 #include <set>
 
 class Tool;
-
 class Worker {
 	private:
 		Position coordonnee;
@@ -31,11 +30,13 @@ class Worker {
 				iter != tools.end();
 				++iter)
 				{
-					if (T* tool = dynamic_cast<T*>(*iter)) {
-						return *iter;
+					T* tool = dynamic_cast<T*>(*iter);
+					if (tool != NULL) {
+						return tool;
 					}
 				}
-		}
+				return NULL;
+		};
 
-		friend class Shovel;
+		friend class Tool;
 };

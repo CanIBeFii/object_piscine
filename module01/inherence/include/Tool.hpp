@@ -4,7 +4,6 @@
 #include "Worker.hpp"
 
 class Worker;
-
 class Tool {
 	protected:
 		int number_of_uses;
@@ -14,11 +13,11 @@ class Tool {
 		Tool();
 		Tool(int uses);
 		Tool(const Tool& copy);
-		~Tool();
+		virtual ~Tool() = 0;
 
 		int getNumberOsUses();
 		virtual void use() = 0;
 
 		void leaveWorker();
-		friend class Worker;
+		void assignWorker(Worker* new_worker);
 };

@@ -31,14 +31,14 @@ void Worker::assignTool(Tool* new_tool) {
 	if (new_tool) {
 		new_tool->leaveWorker();
 		tools.insert(new_tool);
-		new_tool->current_worker = this;
+		new_tool->assignWorker(this);
 	}
 }
 
 void Worker::removeTool(Tool *tool) {
 	std::cout << "Remove shovel called" << std::endl;
 	if (tool != NULL && tools.erase(tool) != 0) {
-		tool->current_worker = NULL;
+		tool->assignWorker(NULL);
 	}
 }
 

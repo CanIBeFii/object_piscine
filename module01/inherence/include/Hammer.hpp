@@ -2,9 +2,6 @@
 
 #include <iostream>
 #include "Tool.hpp"
-#include "Worker.hpp"
-
-class Worker;
 
 class Hammer: public Tool {
 	public:
@@ -14,5 +11,4 @@ class Hammer: public Tool {
 		~Hammer();
 
 		void use();
-		friend class Worker;
 };

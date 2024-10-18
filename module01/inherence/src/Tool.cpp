@@ -27,3 +27,7 @@ void Tool::leaveWorker() {
 		current_worker = NULL;
 	}
 }
+
+void Tool::assignWorker(Worker* new_worker) {
+	current_worker = new_worker;
+}

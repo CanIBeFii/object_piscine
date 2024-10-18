@@ -1,10 +1,10 @@
 NAME=inherence
 
-HEADERS_LIST = Position.hpp Statistic.hpp Worker.hpp Shovel.hpp
+HEADERS_LIST = Tool.hpp Position.hpp Statistic.hpp Worker.hpp Shovel.hpp Hammer.cpp
 HEADERS_DIRECTORY = ./include/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SOURCES_LIST =  main.cpp Position.cpp Statistic.cpp Worker.cpp Shovel.cpp
+SOURCES_LIST =  main.cpp Tool.cpp Position.cpp Statistic.cpp Worker.cpp Shovel.cpp Hammer.cpp
 SOURCES_DIRECTORY = ./src/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
