@@ -1,4 +1,6 @@
 #include "Worker.hpp"
+#include "Shovel.hpp"
+#include "Hammer.hpp"
 
 Worker::Worker(): coordonnee(Position()), stat(Statistic()) {
 	std::cout << "Worker default constructor called" << std::endl;
@@ -37,9 +39,10 @@ void Worker::assignTool(Tool* new_tool) {
 
 void Worker::removeTool(Tool *tool) {
 	std::cout << "Remove shovel called" << std::endl;
-	if (tool != NULL && tools.erase(tool) != 0) {
-		tool->assignWorker(NULL);
+	if (tool == NULL && tools.erase(tool) == 0) {
+		return;
 	}
+	tool->assignWorker(NULL);
 }
 
 void Worker::useTool(Tool* tool) {
@@ -49,4 +52,34 @@ void Worker::useTool(Tool* tool) {
 		return ;
 	}
 	std::cout << "Couldn't use tool because it's a skill issue" << std::endl;
+}
+
+void Worker::joinWorkshop(Workshop* workshop) {
+	if (workshops.find(workshop) != workshops.end()) {
+		std::cout << "Already in this workshop" << std::endl;
+		return ;
+	}
+	if (workshop->registerWorker(this)) {
+		workshops.insert(workshop);
+	}
+}
+
+void	Worker::leaveWorkshop(Workshop* workshop) {
+	workshop->removeWorker(this);
+}
+
+void Worker::removeWorkshop(Workshop* workshop) {
+	if (workshops.find(workshop) == workshops.end()) {
+		std::cout << "Worker is not inside this workshop" << std::endl;
+		return ;
+	}
+	workshops.erase(workshop);
+}
+
+void Worker::work(Workshop* workshop) {
+	if (workshops.find(workshop) == workshops.end()) {
+		std::cout << "Worker is not in this workshop to work" << std::endl;
+		return ;
+	}
+	std::cout << "Working working working" << std::endl;
 }

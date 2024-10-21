@@ -13,7 +13,7 @@ class Tool {
 		Tool();
 		Tool(int uses);
 		Tool(const Tool& copy);
-		virtual ~Tool() = 0;
+		virtual ~Tool();
 
 		int getNumberOsUses();
 		virtual void use() = 0;

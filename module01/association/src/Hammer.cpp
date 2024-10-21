@@ -16,7 +16,7 @@ Hammer::~Hammer() {
 	std::cout << "Hammer destructor called" << std::endl;
 }
 
-void Hammer::use(){
+void	Hammer::use(){
 	std::cout << "Hammer downnn!!!(live with honor, die with glory)" << std::endl;
 	number_of_uses++;
 }

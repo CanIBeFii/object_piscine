@@ -3,14 +3,18 @@
 #include "Position.hpp"
 #include "Statistic.hpp"
 #include "Tool.hpp"
+#include "Workshop.hpp"
 #include <set>
 
 class Tool;
+class Workshop;
 class Worker {
 	private:
 		Position coordonnee;
 		Statistic stat;
 		std::set<Tool*> tools;
+		std::set<Workshop*> workshops;
+
 	public:
 		Worker();
 		Worker(Position coord, Statistic statistic);
@@ -23,6 +27,11 @@ class Worker {
 		void assignTool(Tool* new_tool);
 		void removeTool(Tool* tool);
 		void useTool(Tool* tool);
+		
+		void joinWorkshop(Workshop* workshop);
+		void removeWorkshop(Workshop* workshop);
+		void leaveWorkshop(Workshop* workshop);
+		void work(Workshop* workshop);
 
 		template<typename T>
 		T* getTool() {
@@ -39,4 +48,5 @@ class Worker {
 		};
 
 		friend class Tool;
+		friend class Workshop;
 };
