@@ -50,3 +50,4 @@ class Worker {
 		friend class Tool;
 		friend class Workshop;
 };
+

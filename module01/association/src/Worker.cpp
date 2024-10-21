@@ -40,6 +40,7 @@ void Worker::assignTool(Tool* new_tool) {
 void Worker::removeTool(Tool *tool) {
 	std::cout << "Remove shovel called" << std::endl;
 	if (tool == NULL && tools.erase(tool) == 0) {
+		std::cout << "Couldn't remove tool" << std::endl;
 		return;
 	}
 	tool->assignWorker(NULL);
