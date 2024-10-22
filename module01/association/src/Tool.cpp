@@ -22,6 +22,7 @@ int Tool::getNumberOsUses() {
 }
 
 void Tool::leaveWorker() {
+	std::cout << this << ": Is leaving a worker" << std::endl;
 	if (current_worker != NULL) {
 		current_worker->removeTool(this);
 		current_worker = NULL;

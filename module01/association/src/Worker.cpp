@@ -38,25 +38,27 @@ void Worker::assignTool(Tool* new_tool) {
 }
 
 void Worker::removeTool(Tool *tool) {
-	std::cout << "Remove shovel called" << std::endl;
-	if (tool == NULL && tools.erase(tool) == 0) {
+	std::set<Tool*>::iterator iter = tools.find(tool);
+	if (tool == NULL && *iter == NULL) {
 		std::cout << "Couldn't remove tool" << std::endl;
 		return;
 	}
+	tools.erase(iter);
 	tool->assignWorker(NULL);
 }
 
 void Worker::useTool(Tool* tool) {
 	std::cout << "Use Tool called" << std::endl;
-	if (tool != NULL && tools.find(tool) != tools.end()) {
-		tool->use();
+	if (tool == NULL && tools.find(tool) == tools.end()) {
+		std::cout << "Couldn't use tool because it's a skill issue" << std::endl;
 		return ;
 	}
-	std::cout << "Couldn't use tool because it's a skill issue" << std::endl;
+	tool->use();
 }
 
 void Worker::joinWorkshop(Workshop* workshop) {
-	if (workshops.find(workshop) != workshops.end()) {
+	std::set<Workshop*>::iterator iter = workshops.find(workshop);
+	if (iter != workshops.end()) {
 		std::cout << "Already in this workshop" << std::endl;
 		return ;
 	}
@@ -70,11 +72,12 @@ void	Worker::leaveWorkshop(Workshop* workshop) {
 }
 
 void Worker::removeWorkshop(Workshop* workshop) {
-	if (workshops.find(workshop) == workshops.end()) {
+	std::set<Workshop*>::iterator iter = workshops.find(workshop);
+	if (iter == workshops.end()) {
 		std::cout << "Worker is not inside this workshop" << std::endl;
 		return ;
 	}
-	workshops.erase(workshop);
+	workshops.erase(iter);
 }
 
 void Worker::work(Workshop* workshop) {

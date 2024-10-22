@@ -41,6 +41,7 @@ class Worker {
 				{
 					T* tool = dynamic_cast<T*>(*iter);
 					if (tool != NULL) {
+						std::cout << tool << std::endl;
 						return tool;
 					}
 				}
