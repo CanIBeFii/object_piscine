@@ -19,7 +19,7 @@ public:
 
   int get_total_price() {
     int total = 0;
-    for (std::vector<std::pair<int, int>>::iterator iter = articles.begin();
+    for (std::vector<std::pair<int, int> >::iterator iter = articles.begin();
          iter != articles.end(); ++iter) {
       total += iter->first * iter->second;
     }

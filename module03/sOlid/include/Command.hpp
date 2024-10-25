@@ -9,7 +9,7 @@ protected:
   int id;
   std::string date;
   std::string client;
-  std::vector<std::pair<int, int>> articles;
+  std::vector<std::pair<int, int> > articles;
 
 public:
   Command(int id_, std::string date_, std::string client_)
@@ -25,7 +25,7 @@ public:
 
   virtual int get_total_price() {
     int total = 0;
-    for (std::vector<std::pair<int, int>>::iterator iter = articles.begin();
+    for (std::vector<std::pair<int, int> >::iterator iter = articles.begin();
          iter != articles.end(); ++iter) {
       total += iter->first * iter->second;
     }
