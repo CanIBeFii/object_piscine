@@ -1,6 +1,6 @@
 NAME=sOlid
 
-HEADERS_LIST =
+HEADERS_LIST = Command.hpp PackageReductionDiscountCommand.hpp TuesdayDiscount.hpp
 HEADERS_DIRECTORY = ./include/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
