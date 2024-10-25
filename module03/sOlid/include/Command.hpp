@@ -19,7 +19,7 @@ class Command {
 			std::cout << "Destructor for Command called" << std::endl;
 		}
 
-		int	get_total_price() {
+		virtual int	get_total_price() {
 			int total = 0;
 			for (std::vector<std::pair<int, int>>::iterator iter = articles.begin();
 				iter != articles.end();
