@@ -11,7 +11,7 @@ public:
   ~HeaderLogger() {}
   void write(std::string message) {
     char buffer[20];
-    std::time_t now = std::time(nullptr);
+    std::time_t now = std::time(NULL);
     std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S",
                   std::localtime(&now));
     std::string time(buffer);
