@@ -1,6 +1,6 @@
 NAME=soliD
 
-HEADERS_LIST = ILogger.hpp OsLogger.hpp FileLogger.hpp
+HEADERS_LIST = ILogger.hpp OsLogger.hpp FileLogger.hpp HeaderLogger.hpp
 HEADERS_DIRECTORY = ./include/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
