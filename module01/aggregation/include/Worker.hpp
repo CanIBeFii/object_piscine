@@ -1,28 +1,28 @@
 #pragma once
 
 #include "Position.hpp"
-#include "Statistic.hpp"
 #include "Shovel.hpp"
+#include "Statistic.hpp"
+#include <map>
 
 class Shovel;
 
 class Worker {
-	private:
-		Position coordonnee;
-		Statistic stat;
-		Shovel* shovel;
-	public:
-		Worker();
-		Worker(Position coord, Statistic statistic);
-		Worker(const Worker& copy);
-		~Worker();
+private:
+  Position coordonnee;
+  Statistic stat;
+  Shovel *shovel;
+  static std::map<Worker *, Shovel *> who_has_shovel;
 
-		Position& getCoordonnee();
-		Statistic& getStat();
+public:
+  Worker();
+  Worker(Position coord, Statistic statistic);
+  ~Worker();
 
-		void assignShovel(Shovel* new_shovel);
-		void removeShovel();
-		void useShovel();
+  Position &getCoordonnee();
+  Statistic &getStat();
 
-		friend class Shovel;
+  void assignShovel(Shovel *new_shovel);
+  void removeShovel();
+  void useShovel();
 };
