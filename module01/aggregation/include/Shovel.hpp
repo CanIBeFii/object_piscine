@@ -1,9 +1,5 @@
 #pragma once
 
-#include "Worker.hpp"
-
-class Worker;
-
 struct Shovel {
   int numberOfUses;
 
