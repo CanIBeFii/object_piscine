@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Worker.hpp"
-#include <iostream>
 
 class Worker;
 
