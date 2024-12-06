@@ -38,6 +38,4 @@ public:
     }
     return NULL;
   };
-
-  friend class Tool;
 };
