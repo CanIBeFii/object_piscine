@@ -1,4 +1,5 @@
 #include "Person.hpp"
+#include "Form.hpp"
 #include <iostream>
 
 // Person
@@ -40,11 +41,32 @@ void graduate(Course *p_course) {}
 Headmaster::Headmaster() : Staff("Headmaster") {}
 Headmaster::Headmaster(std::string p_name) : Staff(p_name) {}
 Headmaster::~Headmaster() {}
-
-void Headmaster::receiveForm(Form *p_form) { _formToValidate.insert(_formToValidate.begin() ,p_form); }
+void Headmaster::receiveForm(Form *p_form) {
+  _formToValidate.insert(_formToValidate.begin(), p_form);
+}
 
 // Secretary
 Secretary::Secretary() : Staff("Secretary") {}
 Secretary::Secretary(std::string p_name) : Staff(p_name) {}
 Secretary::~Secretary() {}
-Form*
+Form *Secretary::createForm(FormType p_formType) {
+  switch (p_formType) {
+  case FormType::CourseFinished:
+    return new CourseFinishedForm();
+  case FormType::NeedMoreClassRoom:
+    return new NeedMoreClassRoomForm();
+  case FormType::NeedCourseCreation:
+    return new NeedCourseCreationForm();
+  case FormType::SubscriptionToCourse:
+    return new SubscriptionToCourseForm();
+  }
+}
+void Secretary::archiveForm(Form *p_form) { delete p_form; }
+
+// Professor
+Professor::Professor() : Staff("Professor") {}
+Professor::Professor(std::string p_name) : Staff(p_name) {}
+Professor::~Professor() {}
+void Professor::assignCourse(Course *p_course) { _currentCourse = p_course; }
+void Professor::doClass() {}
+void Professor::closeCourse() {}

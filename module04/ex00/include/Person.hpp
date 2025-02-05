@@ -58,7 +58,7 @@ public:
   Secretary(std::string p_name);
   ~Secretary();
   Form *createForm(FormType p_formType);
-  void archiveForm();
+  void archiveForm(Form *p_form);
 };
 
 class Professor : public Staff {
@@ -66,6 +66,7 @@ class Professor : public Staff {
 
 public:
   Professor();
+  Professor(std::string p_name);
   ~Professor();
   void assignCourse(Course *p_course);
   void doClass();

@@ -12,7 +12,7 @@ class Form {
 
 public:
   Form(FormType p_formType);
-  ~Form();
+  virtual ~Form();
   virtual void execute() = 0;
 };
 
