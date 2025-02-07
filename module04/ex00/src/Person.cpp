@@ -5,11 +5,11 @@
 // Person
 Person::Person(std::string p_name) : _name(p_name) {}
 Person::~Person() {}
+std::string &Person::getName() { return _name; }
 void Person::enterRoom(Room *p_room) {
   p_room->enter(this);
   _currentRoom = p_room;
 }
-
 void Person::leaveRoom() {
   _currentRoom->exit(this);
   _currentRoom = NULL;

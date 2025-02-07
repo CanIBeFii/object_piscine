@@ -1,202 +1,168 @@
-//If you don't know what those 2 lines are, you should look for forward declaration
+// If you don't know what those 2 lines are, you should look for forward
+// declaration
 class Student;
 class Professor;
 
 /*
-You're free to edit those class as much as you like, with the only limitation that the classes must perform the required interactions with one another.
+You're free to edit those class as much as you like, with the only limitation
+that the classes must perform the required interactions with one another.
 
 You can change base pointer to smart one.
 You can change return type to ... Whatever you like.
 
-Anything, as long as you think it's smarter that what is currently writed in this file.
+Anything, as long as you think it's smarter that what is currently writed in
+this file.
 */
 
-class Course
-{
+class Course {
 private:
-	std::string _name;
-	Professor* _responsable;
-	std::vector<Student*> _students;
-	int _numberOfClassToGraduate;
-	int _maximumNumberOfStudent;
-public:
-	Course(std::string p_name);
-	void assign(Professor* p_professor);
-	void subscribe(Student* p_student);
-};
-
-class Room
-{
-private:
-	long long ID;
-	std::vector<Person*> _occupants;
+  std::string _name;
+  Professor *_responsable;
+  std::vector<Student *> _students;
+  int _numberOfClassToGraduate;
+  int _maximumNumberOfStudent;
 
 public:
-	Room();
-	bool canEnter(Person*);
-	void enter(Person*);
-	void exit(Person*);
-	
-	void printOccupant();
+  Course(std::string p_name);
+  void assign(Professor *p_professor);
+  void subscribe(Student *p_student);
 };
 
-class Classroom : public Room
-{
+class Room {
 private:
-	Course* _currentRoom;
+  long long ID;
+  std::vector<Person *> _occupants;
 
 public:
-	Classroom();
-	void assignCourse(Course* p_course);
+  Room();
+  bool canEnter(Person *);
+  void enter(Person *);
+  void exit(Person *);
+
+  void printOccupant();
 };
 
-class SecretarialOffice: public Room
-{
+class Classroom : public Room {
 private:
-	std::vector<Form*> _archivedForms;
+  Course *_currentRoom;
 
 public:
-
+  Classroom();
+  void assignCourse(Course *p_course);
 };
 
-class HeadmasterOffice : public Room
-{
+class SecretarialOffice : public Room {
 private:
+  std::vector<Form *> _archivedForms;
 
 public:
-
 };
 
-class StaffRestRoom : public Room
-{
+class HeadmasterOffice : public Room {
 private:
+public:
+};
+
+class StaffRestRoom : public Room {
+private:
+public:
+};
+
+class Courtyard : public Room {
+private:
+public:
+};
+
+class Person {
+private:
+  std::string _name;
+  Room *_currentRoom;
 
 public:
-
+  Personne(std::string p_name);
+  Room *room() { return (_currentRoom); }
 };
 
-class Courtyard : public Room
-{
+class Staff : public Person {
 private:
+public:
+  void sign(Form *p_form);
+};
+
+enum class FormType {
+  CourseFinishe,
+  NeedMoreClassRoom,
+  NeedCourseCreation,
+  SubscriptionToCourse
+};
+
+class Form {
+private:
+  FormType _formType;
 
 public:
+  Form(FormType p_formType) {}
 
+  virtual void execute() = 0;
 };
 
-class Person
-{
+class CourseFinishedForm : public Form {
 private:
-	std::string _name;
-	Room* _currentRoom;
 public:
-	Personne(std::string p_name);
-	Room* room() {return (_currentRoom);}
+  void execute();
 };
 
-class Staff : public Person
-{
+class NeedMoreClassRoomForm : public Form {
 private:
-
 public:
-	void sign(Form* p_form);
+  void execute();
 };
 
-enum class FormType
-{
-	CourseFinished
-	NeedMoreClassRoom
-	NeedCourseCreation
-	SubscriptionToCourse
-};
-
-class Form
-{
+class NeedCourseCreationForm : public Form {
 private:
-	FormType _formType;
-
 public:
-	Form(FormType p_formType)
-	{
-
-	}
-
-	virtual void execute() = 0;
+  void execute();
 };
 
-class CourseFinishedForm : public Form
-{
+class SubscriptionToCourseForm : public Form {
 private:
+public:
+  void execute();
+};
+
+class Student : public Person {
+private:
+  std::vector<Course *> _subscribedCourse;
 
 public:
-	void execute();
+  void attendClass(Classroom *p_classroom);
+  void exitClass();
+  void graduate(Course *p_course);
 };
 
-class NeedMoreClassRoomForm : public Form
-{
+class Headmaster : public Staff {
 private:
+  std::vector<Form *> _formToValidate;
 
 public:
-	void execute();
+  void receiveForm(Form *p_form);
 };
 
-class NeedCourseCreationForm : public Form
-{
+class Secretary : public Staff {
 private:
+public:
+  Form *createForm(FormType p_formType);
+  void archiveForm();
+};
+
+class Professor : public Staff {
+private:
+  Course *_currentCourse;
 
 public:
-	void execute();
+  void assignCourse(Course *p_course);
+  void doClass();
+  void closeCourse();
 };
 
-class SubscriptionToCourseForm : public Form
-{
-private:
-
-public:
-	void execute();
-};
-
-class Student : public Person
-{
-private:
-	std::vector<Course*> _subscribedCourse;
-
-public:
-	void attendClass(Classroom* p_classroom);
-	void exitClass();
-	void graduate(Course* p_course);
-};
-
-class Headmaster : public Staff
-{
-private:
-	std::vector<Form*> _formToValidate;
-	
-public:
-	void receiveForm(Form* p_form);
-};
-
-class Secretary : public Staff
-{
-private:
-
-public:
-	Form* createForm(FormType p_formType);
-	void archiveForm();
-};
-
-class Professor : public Staff
-{
-private:
-	Course* _currentCourse;
-
-public:
-	void assignCourse(Course* p_course);
-	void doClass();
-	void closeCourse();
-};
-
-enum class Event
-{
-	RingBell
-};
-
+enum class Event { RingBell };

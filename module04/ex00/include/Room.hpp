@@ -12,12 +12,13 @@ enum class Event {
 class Person;
 
 class Room {
+  static long long m_room_number;
   long long m_ID;
   std::vector<Person *> m_occupants;
 
 public:
   Room();
-  ~Room();
+  virtual ~Room();
   virtual bool canEnter(Person *t_person) = 0;
   bool enter(Person *t_person);
   bool exit(Person *t_person);

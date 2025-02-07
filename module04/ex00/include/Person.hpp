@@ -16,6 +16,7 @@ class Person {
 public:
   Person(std::string p_name);
   ~Person();
+  std::string &getName();
   void enterRoom(Room *p_room);
   void leaveRoom();
   Room *room();
