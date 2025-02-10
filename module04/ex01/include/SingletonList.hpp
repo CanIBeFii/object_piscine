@@ -10,9 +10,9 @@ private:
   static SingletonList *_instance_ptr;
 
   SingletonList() {}
-  ~SingletonList() {}
 
 public:
+  ~SingletonList() {}
   SingletonList(const SingletonList &) = delete;
   SingletonList &operator=(const SingletonList) = delete;
 

@@ -1,6 +1,7 @@
 #include "Person.hpp"
 #include "Form.hpp"
 #include <iostream>
+#include <ostream>
 
 // Person
 Person::Person(std::string p_name) : _name(p_name) {}
@@ -21,13 +22,16 @@ Room *Person::room() { return _currentRoom; }
 Staff::Staff() : Person(std::string("Staff")) {}
 Staff::Staff(std::string p_name) : Person(p_name) {}
 Staff::~Staff() {}
-void Staff::sign(Form *p_form) { std::cout << "Form was signed" << std::endl; }
+void Staff::sign(Form *p_form) {
+  p_form->execute();
+  std::cout << "Form was signed" << std::endl;
+}
 
 // Student
 Student::Student() : Person(std::string("Student")) {}
 Student::Student(std::string p_name) : Person(p_name) {}
 Student::~Student() {}
-void Student::subscribeCourse(Course *p_course) {}
+void Student::subscribeCourse(Course *p_course) { p_course->subscribe(this); }
 void Student::attendClass(Classroom *p_classroom) {
   if (p_classroom->canEnter(this)) {
     enterRoom(p_classroom);
@@ -35,7 +39,10 @@ void Student::attendClass(Classroom *p_classroom) {
   }
 }
 void Student::exitClass() { leaveRoom(); }
-void graduate(Course *p_course) {}
+void graduate(Course *p_course) {
+  std::cout << "Student graduated the course " << p_course->get_name()
+            << std::endl;
+}
 
 // Headmaster
 Headmaster::Headmaster() : Staff("Headmaster") {}
@@ -60,6 +67,7 @@ Form *Secretary::createForm(FormType p_formType) {
   case FormType::SubscriptionToCourse:
     return new SubscriptionToCourseForm();
   }
+  return nullptr;
 }
 void Secretary::archiveForm(Form *p_form) { delete p_form; }
 

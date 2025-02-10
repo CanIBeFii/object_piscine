@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -20,4 +21,5 @@ public:
   std::string get_name();
   void assign(Professor *t_professor);
   void subscribe(Student *t_student);
+  bool studentSubcribed(Student *t_student);
 };

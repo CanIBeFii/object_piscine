@@ -2,6 +2,7 @@
 
 // Form
 Form::Form(FormType p_formType) : _formType(p_formType) {}
+Form::~Form() {}
 
 // CourseFinishedForm
 CourseFinishedForm::CourseFinishedForm() : Form(FormType::CourseFinished) {}
