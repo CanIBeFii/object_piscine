@@ -17,6 +17,7 @@ public:
   Course();
   Course(std::string t_name);
   ~Course();
+  std::string get_name();
   void assign(Professor *t_professor);
   void subscribe(Student *t_student);
 };
