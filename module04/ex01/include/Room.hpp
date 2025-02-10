@@ -20,6 +20,7 @@ public:
   Room();
   virtual ~Room();
   virtual bool canEnter(Person *t_person) = 0;
+  long long get_id();
   bool enter(Person *t_person);
   bool exit(Person *t_person);
 

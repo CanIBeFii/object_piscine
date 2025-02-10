@@ -6,6 +6,7 @@ long long Room::m_room_number = 0;
 
 Room::Room() : m_ID(m_room_number++) {}
 
+long long Room::get_id() { return m_ID; }
 bool Room::enter(Person *t_person) {
   if (canEnter(t_person)) {
     m_occupants.insert(m_occupants.begin(), t_person);
