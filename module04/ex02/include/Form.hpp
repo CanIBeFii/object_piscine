@@ -1,5 +1,7 @@
 #pragma once
 
+#include <map>
+
 enum class FormType {
   CourseFinished,
   NeedMoreClassRoom,
@@ -7,6 +9,7 @@ enum class FormType {
   SubscriptionToCourse,
 };
 
+// Forms
 class Form {
   FormType _formType;
 
@@ -42,4 +45,42 @@ public:
   SubscriptionToCourseForm();
   ~SubscriptionToCourseForm();
   void execute();
+};
+
+// Factories
+
+class IFormFactory {
+public:
+  virtual ~IFormFactory();
+  virtual Form *create_form();
+};
+
+class CourseFinishedFormFactory : public IFormFactory {
+public:
+  Form *create_form();
+};
+
+class NeedMoreClassRoomFormFactory : public IFormFactory {
+public:
+  Form *create_form();
+};
+
+class NeedCourseCreationFormFactory : public IFormFactory {
+public:
+  Form *create_form();
+};
+
+class SubscriptionToCourseFormFactory : public IFormFactory {
+public:
+  Form *create_form();
+};
+
+class FormFactoryRegister {
+  std::map<FormType, IFormFactory *> _factories;
+
+public:
+  FormFactoryRegister();
+  ~FormFactoryRegister();
+  void register_factory(FormType type, IFormFactory *factory);
+  Form *create_form(FormType type);
 };
