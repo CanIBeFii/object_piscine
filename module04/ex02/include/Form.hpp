@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <memory>
 
 enum class FormType {
   CourseFinished,
@@ -13,10 +14,17 @@ enum class FormType {
 class Form {
   FormType _formType;
 
+protected:
+  bool _is_signed;
+  bool _was_executed;
+
 public:
   Form(FormType p_formType);
   virtual ~Form();
   virtual void execute() = 0;
+  bool get_is_signed();
+  bool get_was_executed();
+  void sign();
 };
 
 class CourseFinishedForm : public Form {
@@ -76,11 +84,11 @@ public:
 };
 
 class FormFactoryRegister {
-  std::map<FormType, IFormFactory *> _factories;
+  std::map<FormType, std::unique_ptr<IFormFactory>> _factories;
 
 public:
   FormFactoryRegister();
   ~FormFactoryRegister();
-  void register_factory(FormType type, IFormFactory *factory);
+  void register_factory(FormType type, std::unique_ptr<IFormFactory> factory);
   Form *create_form(FormType type);
 };
