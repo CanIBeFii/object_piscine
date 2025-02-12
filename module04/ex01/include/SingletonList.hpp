@@ -1,13 +1,13 @@
 #pragma once
 
-#include <algorithm>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
 template <typename T> class SingletonList {
 private:
   std::vector<T *> _list;
-  static SingletonList *_instance_ptr;
+  static std::unique_ptr<SingletonList> _instance_ptr;
 
   SingletonList() {}
 
@@ -18,9 +18,9 @@ public:
 
   static SingletonList *get_instance() {
     if (_instance_ptr == nullptr) {
-      _instance_ptr = new SingletonList();
+      _instance_ptr.reset(new SingletonList());
     }
-    return _instance_ptr;
+    return _instance_ptr.get();
   }
 
   bool add_element(T *element) {
@@ -50,4 +50,4 @@ public:
 };
 
 template <typename T>
-SingletonList<T> *SingletonList<T>::_instance_ptr = nullptr;
+std::unique_ptr<SingletonList<T>> SingletonList<T>::_instance_ptr = nullptr;
