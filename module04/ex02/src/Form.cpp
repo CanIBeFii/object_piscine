@@ -1,4 +1,7 @@
 #include "Form.hpp"
+#include "Course.hpp"
+#include "Room.hpp"
+#include "SingletonList.hpp"
 #include <memory>
 
 // Form
@@ -16,54 +19,36 @@ void Form::sign() {
 // CourseFinishedForm
 CourseFinishedForm::CourseFinishedForm() : Form(FormType::CourseFinished) {}
 CourseFinishedForm::~CourseFinishedForm() {}
-void CourseFinishedForm::execute() {}
+void CourseFinishedForm::set_course(Course *course) { _course = course; }
+void CourseFinishedForm::set_student(Student *student) { _student = student; }
+void CourseFinishedForm::execute() {
+  if (!_is_signed) {
+    return;
+  }
+  _was_executed = true;
+  _course->subscribe(_student);
+}
 
 // NeedMoreClassRoomForm
 NeedMoreClassRoomForm::NeedMoreClassRoomForm()
     : Form(FormType::NeedMoreClassRoom) {}
 NeedMoreClassRoomForm::~NeedMoreClassRoomForm() {}
-void NeedMoreClassRoomForm::execute() {}
+void NeedMoreClassRoomForm::execute() {
+  if (!_is_signed) {
+    return;
+  }
+  _was_executed = true;
+  //   SingletonList<Room>::get_instance()->add_element();
+}
 
 // NeedCourseCreationForm
 NeedCourseCreationForm::NeedCourseCreationForm()
     : Form(FormType::NeedCourseCreation) {}
 NeedCourseCreationForm::~NeedCourseCreationForm() {}
-void NeedCourseCreationForm::execute() {}
+void NeedCourseCreationForm::execute() { _was_executed = true; }
 
 // SubscriptionToCourseForm
 SubscriptionToCourseForm::SubscriptionToCourseForm()
     : Form(FormType::SubscriptionToCourse) {}
 SubscriptionToCourseForm::~SubscriptionToCourseForm() {}
-void SubscriptionToCourseForm::execute() {}
-
-// Factories
-Form *CourseFinishedFormFactory::create_form() {
-  return new CourseFinishedForm();
-}
-
-Form *NeedMoreClassRoomFormFactory::create_form() {
-  return new NeedMoreClassRoomForm();
-}
-
-Form *NeedCourseCreationFormFactory::create_form() {
-  return new NeedCourseCreationForm();
-}
-
-Form *SubscriptionToCourseFormFactory::create_form() {
-  return new SubscriptionToCourseForm();
-}
-
-FormFactoryRegister::FormFactoryRegister() {}
-FormFactoryRegister::~FormFactoryRegister() {}
-void FormFactoryRegister::register_factory(
-    FormType type, std::unique_ptr<IFormFactory> factory) {
-  _factories[type] = std::move(factory);
-}
-
-Form *FormFactoryRegister::create_form(FormType type) {
-  auto iter = _factories.find(type);
-  if (iter != _factories.end()) {
-    return iter->second->create_form();
-  }
-  return nullptr;
-}
+void SubscriptionToCourseForm::execute() { _was_executed = true; }

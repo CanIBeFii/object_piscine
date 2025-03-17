@@ -1,7 +1,12 @@
 #pragma once
 
+#include "Course.hpp"
 #include <map>
 #include <memory>
+
+class Course;
+class Student;
+class Room;
 
 enum class FormType {
   CourseFinished,
@@ -28,9 +33,14 @@ public:
 };
 
 class CourseFinishedForm : public Form {
+  Course *_course;
+  Student *_student;
+
 public:
   CourseFinishedForm();
   ~CourseFinishedForm();
+  void set_course(Course *course);
+  void set_student(Student *student);
   void execute();
 };
 
@@ -53,42 +63,4 @@ public:
   SubscriptionToCourseForm();
   ~SubscriptionToCourseForm();
   void execute();
-};
-
-// Factories
-
-class IFormFactory {
-public:
-  virtual ~IFormFactory();
-  virtual Form *create_form();
-};
-
-class CourseFinishedFormFactory : public IFormFactory {
-public:
-  Form *create_form();
-};
-
-class NeedMoreClassRoomFormFactory : public IFormFactory {
-public:
-  Form *create_form();
-};
-
-class NeedCourseCreationFormFactory : public IFormFactory {
-public:
-  Form *create_form();
-};
-
-class SubscriptionToCourseFormFactory : public IFormFactory {
-public:
-  Form *create_form();
-};
-
-class FormFactoryRegister {
-  std::map<FormType, std::unique_ptr<IFormFactory>> _factories;
-
-public:
-  FormFactoryRegister();
-  ~FormFactoryRegister();
-  void register_factory(FormType type, std::unique_ptr<IFormFactory> factory);
-  Form *create_form(FormType type);
 };

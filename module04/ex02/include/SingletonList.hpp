@@ -6,7 +6,7 @@
 
 template <typename T> class SingletonList {
 private:
-  std::vector<T *> _list;
+  std::vector<std::shared_ptr<T>> _list;
   static std::unique_ptr<SingletonList> _instance_ptr;
 
   SingletonList() {}
@@ -23,13 +23,13 @@ public:
     return _instance_ptr.get();
   }
 
-  bool add_element(T *element) {
+  bool add_element(std::shared_ptr<T> element) {
     for (auto iter = _list.begin(); iter != _list.end(); ++iter) {
       if (*iter == element) {
         return false;
       }
     }
-    _list.push_back(element);
+    _list.push_back(std::move(element));
     return true;
   }
   bool delete_element(T *element) {
@@ -41,8 +41,8 @@ public:
     }
     return false;
   }
-  std::vector<T *> &get_list() { return _list; }
-  T *operator[](int index) {
+  std::vector<std::shared_ptr<T>> &get_list() { return _list; }
+  std::weak_ptr<T> operator[](int index) {
     if (index < 0 || index >= _list.size())
       throw std::out_of_range("Index is not in range of the list");
     return _list.at(index);
